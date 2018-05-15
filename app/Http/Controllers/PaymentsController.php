@@ -19,4 +19,15 @@ class PaymentsController extends Controller
 
         return redirect('/home');
     }
+
+    public function cancel()
+    {
+        // user will un-subscribed but carry the rest of his times.
+        Auth::user()->subscription('primary')->cancel();
+
+        // user will become never subscribed before.
+//        Auth::user()->subscription('primary')->cancelNow();
+
+        return redirect('/home');
+    }
 }

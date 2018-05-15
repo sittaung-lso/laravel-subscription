@@ -4,6 +4,15 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                @if (Auth::user()->subscribed('primary') &&
+                    Auth::user()->subscription('primary')->onGracePeriod())
+                    <div class="alert alert-danger">
+                        You subscription will not renew. You have canceled, but still have pre-paid time on
+                        your
+                        subscription.
+                    </div>
+                @endif
+                
                 <div class="panel panel-default">
                     <div class="panel-heading">Dashboard</div>
 
@@ -16,14 +25,6 @@
 
                         <h4>Manage Subscriptions</h4>
                         @if (Auth::user()->subscribed('primary'))
-                            @if (Auth::user()->subscription('primary')->onGracePeriod())
-                                <div class="alert alert-danger">
-                                    You subscription will not renew. You have canceled, but still have pre-paid time on
-                                    your
-                                    subscription.
-                                </div>
-                            @endif
-
                             <p class="lead">
                                 You are subscribed!
                             </p>

@@ -20,14 +20,21 @@
                             <p class="lead">
                                 You are subscribed!
                             </p>
+                            <hr/>
+                            @if (Auth::user()->subscribedToPlan('yearly', 'primary'))
+                                <a href="/pay/monthly" class="btn btn-sm btn-primary">Downgrade to Monthly</a>
+                            @else
+                                <a href="/pay/yearly" class="btn btn-sm btn-primary">Upgrade to Annual</a>
+                            @endif
+
+                            <a href="/cancel" class="btn btn-sm btn-danger">Cancel Subscription</a>
                         @else
                             <p class="lead">
                                 You are not a subscriber yet!
                             </p>
-                        @endif
 
-                        <h5>Subscribe:</h5>
-                        @if (!Auth::user()->subscribedToPlan('monthly', 'primary'))
+                            <h5>Subscribe:</h5>
+
                             <form action="/pay/monthly" method="POST">
                                 {{ csrf_field() }}
                                 <script
@@ -42,9 +49,9 @@
                                         data-panel-label="Subscribe">
                                 </script>
                             </form>
-                        @endif
 
-                        @if (!Auth::user()->subscribedToPlan('yearly', 'primary'))
+
+
                             <form action="/pay/yearly" method="POST" style="margin-top: 10px;">
                                 {{ csrf_field() }}
                                 <script

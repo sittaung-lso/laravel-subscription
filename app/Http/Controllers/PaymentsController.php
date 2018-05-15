@@ -31,4 +31,12 @@ class PaymentsController extends Controller
 
         return redirect('/home');
     }
+
+    public function invoice(Request $request, $invoiceId)
+    {
+        return $request->user()->downloadInvoice($invoiceId, [
+            'vendor' => 'Cashier Inc.',
+            'product' => 'Primary Subscription'
+        ]);
+    }
 }
